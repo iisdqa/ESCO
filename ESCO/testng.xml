@@ -47,17 +47,17 @@
 
 <suite name="For testing">
 	<listeners>
-		<listener class-name="com.docsflow.core.Listeners" />
+		<listener class-name="com.esco.core.Listeners" />
 	</listeners>
 	
 	<test name="preserve-order Other tests" preserve-order="true">
 	    <groups>
         	<run>
-      			<include name="UsersAndAudit_Test"/>
+      			<include name="AuditorAdd_Test"/>
         	</run>
     	</groups>
     	<classes>
-    		<class name="com.docsflow.tests.administration.UsersAndAudit_Test" />
+    		<class name="com.esco.tests.energy_audit.AuditorAdd_Test" />
     	</classes>
 	</test>
 </suite>

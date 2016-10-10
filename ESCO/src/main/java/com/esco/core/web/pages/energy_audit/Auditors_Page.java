@@ -10,7 +10,7 @@ import com.esco.core.web.WebPage;
 
 public class Auditors_Page extends WebPage<Auditors_Page>
 {
-	private static final String PAGE_URL = BASE_URL + "/CommonDocs/Docs/List/63";
+	private static final String PAGE_URL = BASE_URL + "/CommonDocs/Docs/List/86";
 	
 	public Auditors_Page(WebDriver driver) 
 	{
@@ -27,7 +27,7 @@ public class Auditors_Page extends WebPage<Auditors_Page>
 	@Override
 	public boolean isAvailable()
 	{
-		return new Elements().new Units_Tree().units_Accordion(driver).isAvailable();
+		return new Elements().new Grid().add_Button(driver).isAvailable();
 	}
 
 	
@@ -38,19 +38,6 @@ public class Auditors_Page extends WebPage<Auditors_Page>
 	{
 		//waitUntilClickable(new Elements().new Units_Tree().tree_Div(driver));
 		new Elements().new Grid().add_Button(driver).waitUntilAvailable();
-	}
-	
-	// Открыть дерево подразделений
-	public void tree_Open()
-	{
-		// Путь к подразделению
-		int[] tree_Path = {1, 4, 1};
-		
-		// Переход к подразделению
-		new CommonActions().tree_Handler(driver, tree_Path);
-		
-		// Ожидание прогрузки грида
-		gridDownload_Wait();
 	}
 	
 	// Ожидание прогрузки грида
@@ -66,12 +53,6 @@ public class Auditors_Page extends WebPage<Auditors_Page>
 		// Нажать на кнопку добавления
 		new Elements().new Grid().add_Button(driver).click();
 		new CommonActions().simpleWait(2);
-		
-/*		// Закрыть пред. вкладку + переключить драйвер на новую
-		ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
-		driver.close();
-		driver.switchTo().window(tabs.get(1));*/
-		
 		return new Auditors_RegistrationPage(driver).waitUntilAvailable();	
 	}
 	
@@ -96,15 +77,11 @@ public class Auditors_Page extends WebPage<Auditors_Page>
 	{
 		//region Variables
 		WebElement grid = new Elements().new Grid().grid_Body(driver);
-		String index = new Elements().new Filtration_Accordion().new Values().value;
-		String number  = index.substring(index.lastIndexOf('0') + 1);
-		String regDate = new Auditors_RegistrationPage(driver).new Elements().new Values().regDate;
-		String correspondent = new Auditors_RegistrationPage(driver).new Elements().new Values().correspondent;
-		String corrNum = new Auditors_RegistrationPage(driver).new Elements().new Values().corrNum;
-		String corrDate = new Auditors_RegistrationPage(driver).new Elements().new Values().corrDate;
-		String shortSummary = new Auditors_RegistrationPage(driver).new Elements().new Values().shortSummary;
-		if (checkType == "edit") shortSummary = shortSummary + "2";
-		String regulation = new Auditors_RegistrationPage(driver).new Elements().new Values().regulation;
+		String fullName = new Elements().new Filtration_Accordion().new Values().fullName;
+		String phone = new Auditors_RegistrationPage(driver).new Elements().new Values().phone;
+		String cellPhone = new Auditors_RegistrationPage(driver).new Elements().new Values().cellPhone;
+		String email = new Auditors_RegistrationPage(driver).new Elements().new Values().email;
+		if (checkType == "edit") email = email + "2";		
 		//endregion
 		
 		// Определение ожидаемых значений
@@ -112,14 +89,10 @@ public class Auditors_Page extends WebPage<Auditors_Page>
 		ExpectedValues[0] = new String[] {"",
 										  "",
 										  "",
-										  number, 
-										  index, 
-										  regDate, 
-										  correspondent,
-										  corrNum,
-										  corrDate,
-										  shortSummary,
-										  regulation};
+										  fullName, 
+										  phone, 
+										  cellPhone, 
+										  email};
 		
 		// Вытянуть последнее значения из грида
 		String[][] ActualValues = new CustomMethods().new Grid().GetAllRows(grid, true);;
@@ -168,9 +141,13 @@ public class Auditors_Page extends WebPage<Auditors_Page>
 			// Используемые значения
 			private class Values
 			{
-				private String fieldName = "Індекс документа";
+				private String fieldName = "ПІБ";
 				private String matchType = "Дорівнює";
-				private String value = new CustomMethods().new WorkWith_TextFiles().file_Read(TextFiles_Path + "IncomingDoc_Index");
+				private String surname = new Auditors_RegistrationPage(driver).new Elements().new Values().surname;
+				private String name = new Auditors_RegistrationPage(driver).new Elements().new Values().name;
+				private String patronymic = new Auditors_RegistrationPage(driver).new Elements().new Values().patronymic;
+				private String fullName = surname + " " + name + " " + patronymic;
+				private String value = fullName;
 			}
 		}	
 	}

@@ -65,48 +65,18 @@ public class MainPage extends WebPage<MainPage>
 	
 	// Навигация по меню
 	public class goTo
-	{
-		// Блок 'Документи'
-		public class DocsBlock
-		{						
-			// Пункт меню 'Вхідні документи'
-			public Auditors_Page IncomingDocs_Page()
-			{    
-				// Использовать менюшку
-				new CommonActions().menu_Handler(driver, 1, 1);
-				
-			    return new Auditors_Page(driver).waitUntilAvailable();			   
-			}
-			
-			// Пункт меню 'Вихідні документи'
-			public Auditors_Page OutgoingDocs_Page()
-			{    
-				// Использовать менюшку
-				new CommonActions().menu_Handler(driver, 1, 2);
-		        
-			    return new Auditors_Page(driver).waitUntilAvailable();			   
-			}
-		}
-		
+	{	
+		// Блок "Енергоаудит"
 		public class EnergyAudit_Block
 		{
-/*			// Пункт меню 'Реестр ФО'
-			public Individuals_Page individuals_Page()
+			// Пункт меню 'Вхідні документи'
+			public Auditors_Page Auditors_Page()
 			{    
 				// Использовать менюшку
-				new CommonActions().menu_Handler(driver, 2, 2);
+				new CommonActions().menu_Handler(driver, 3, 2);
 				
-			    return new Individuals_Page(driver).waitUntilAvailable();			   
+			    return new Auditors_Page(driver).waitUntilAvailable();			   
 			}
-			
-			// Пункт меню 'Реестр ФОП'
-			public Entrepreneurs_Page entrepreneurs_Page()
-			{    
-				// Использовать менюшку
-				new CommonActions().menu_Handler(driver, 2, 3);
-				
-			    return new Entrepreneurs_Page(driver).waitUntilAvailable();			   
-			}*/
 		}
 		
 		// Страничка 'НДІ'

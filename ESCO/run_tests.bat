@@ -1,6 +1,6 @@
-set env=release
+set env=dev
 set brw=chrome
-set log=C:\Selenium_TestData\Projects\DocsFlow\Other\BatLog\%brw%_%env%_run_%date:/=-%.log
+set log=C:\Selenium_TestData\Projects\ESCO\Other\BatLog\%brw%_%env%_run_%date:/=-%.log
 echo start > %log%
 echo ================ >> %log%
 
