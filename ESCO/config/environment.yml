@@ -1,0 +1,16 @@
+environments:
+ 
+  dev:
+   scheme: http
+   host: sdoc
+   port: 8003
+ 
+  release:
+   scheme: http
+   host: sdoc
+   port: 9003
+ 
+  demo:
+   scheme: http
+   host: dsbase_demo
+   port: 9000

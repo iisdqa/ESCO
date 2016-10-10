@@ -1,0 +1,63 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+<suite name="All tests">
+	<listeners>
+		<listener class-name="com.docsflow.core.Listeners" />
+	</listeners>
+	
+	<test name="preserve-order All tests" preserve-order="true">
+	    <groups>
+	        <define name="other_tests">
+      			<include name="UsersAndAudit_Test"/>
+    		</define>
+			
+			<define name="docs_tests">
+      			<include name="IncomingDocsAdd_Test"/>
+    		</define>
+    		
+    		<define name="registers_tests">
+      			<include name="IndividualAdd_Test"/>
+      			<include name="EntrepreneurAdd_Test"/>
+    		</define>
+			
+			<define name="cnap_tests">
+      			<include name=""/>
+    		</define>
+			
+			<define name="all_tests">
+      			<include name="other_tests"/>
+      			<include name="docs_tests"/>
+      			<include name="registers_tests"/>
+      			<include name="cnap_tests"/>
+    		</define>
+    			    
+        	<run>
+            	<include name="all_tests" />
+        	</run>
+    	</groups>
+    	<classes>
+       		<class name="com.docsflow.tests.administration.UsersAndAudit_Test" />
+			<class name="com.docsflow.tests.docs.IncomingDocsAdd_Test" />
+    		<class name="com.docsflow.tests.registers.IndividualAdd_Test" />
+    		<class name="com.docsflow.tests.registers.EntrepreneurAdd_Test" />	
+    	</classes>
+	</test>
+</suite>
+-->
+
+<suite name="For testing">
+	<listeners>
+		<listener class-name="com.docsflow.core.Listeners" />
+	</listeners>
+	
+	<test name="preserve-order Other tests" preserve-order="true">
+	    <groups>
+        	<run>
+      			<include name="UsersAndAudit_Test"/>
+        	</run>
+    	</groups>
+    	<classes>
+    		<class name="com.docsflow.tests.administration.UsersAndAudit_Test" />
+    	</classes>
+	</test>
+</suite>
