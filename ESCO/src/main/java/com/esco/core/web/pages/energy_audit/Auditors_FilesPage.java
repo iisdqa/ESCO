@@ -223,15 +223,15 @@ private static final String PAGE_URL = BASE_URL + "/CommonDocs/Docs/Edit/55/";
 		private class Files extends CommonElements.Card_Elements.Card_Files_Elements
 		{
 			// Название файла
-			public TextInput file_Input()      			{ return new TextInput(driver, By.id("569_fname")); }
+			public TextInput file_Input()      			{ return new TextInput(driver, By.id("971_fname")); }
 			
 			// 'Комментарий'
-			public Custom comment_Text()   				{ return new Custom(driver, By.id("customTextEditor_572")); }
+			public Custom comment_Text()   				{ return new Custom(driver, By.id("customTextEditor_974")); }
 			
 			// Грид
 			private class Grid extends CommonElements.Card_Elements.Grid
 			{
-				private String grid_Id = "568";
+				private String grid_Id = "970";
 			}
 			
 			private class Values

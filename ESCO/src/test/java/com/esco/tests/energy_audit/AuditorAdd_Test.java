@@ -42,10 +42,6 @@ public class AuditorAdd_Test extends BaseTest
 			Auditors_RegistrationPage addPage = auditorsPage.card_add();
 			Auditors_RegistrationPage editPage = addPage.cardInfo_Set();
 			editPage.card_Check();
-
-			// Редактирование карточки				
-			editPage.card_Edit();
-			editPage.editedCard_Check();
 			editPage.email_Edit();
 			
 			// Работа со вкладкой 'Связанные документы и файлы'
@@ -67,12 +63,12 @@ public class AuditorAdd_Test extends BaseTest
 			
 			auditorsPage = filesInset.card_Close("tricky");
 			auditorsPage.waitFor_PageReady();
-			//docsPage.tree_Open();
 			auditorsPage.card_Search();
 			auditorsPage.card_Check("add");
 			editPage = auditorsPage.card_Edit();
 			editPage.cardHeader_Check();
-			editPage = editPage.comment_Edit();
+			editPage.card_Edit();
+			editPage.editedCard_Check();
 			auditorsPage = editPage.card_Close();
 			
 			// Проверка просмотра

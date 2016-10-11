@@ -199,10 +199,8 @@ public abstract class CommonElements
 			// Найденный документ
 			public Text findedDoc_Text(WebDriver driver, String docName)	{return new Text(driver, By.xpath("//*[contains(@id, '_anchor') " +
 																											  "and text()='" + docName + "']"));}
-			
 			// Кнопка 'Прив'язати документ'
 			public Button linkDoc_Button(WebDriver driver)   				{ return new Button(driver, By.id("btnLink")); }
-			
 			
 			// Добавленный документ
 			public Text addedDoc_Text(WebDriver driver)						{return new Text(driver, By.xpath("//a[@href='#' and contains(@id, '_anchor')]"));}
@@ -232,5 +230,10 @@ public abstract class CommonElements
 		
 		// Кнопка сохранения
 		public Button save_Button(WebDriver driver)   				{ return new Button(driver, By.xpath("//span[@class='ui-button-text' and text()='Зберегти']")); }
+		
+		public static class Values
+		{
+			public String cardDeletion_Message = "Обраний документ буде видалено, продовжити?";
+		}
 	}
 }

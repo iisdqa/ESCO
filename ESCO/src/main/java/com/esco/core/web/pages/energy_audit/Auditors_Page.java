@@ -1,5 +1,9 @@
 package com.esco.core.web.pages.energy_audit;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -7,6 +11,8 @@ import com.esco.core.web.CommonActions;
 import com.esco.core.web.CommonElements;
 import com.esco.core.web.CustomMethods;
 import com.esco.core.web.WebPage;
+import com.esco.core.web.elements.Button;
+import com.esco.core.web.elements.Custom;
 
 public class Auditors_Page extends WebPage<Auditors_Page>
 {
@@ -121,6 +127,36 @@ public class Auditors_Page extends WebPage<Auditors_Page>
 		return new Auditors_RegistrationPage(driver).waitUntilAvailable();	
 	}
 	
+	public void card_Delete()
+	{
+		//region Variables
+		Button deleteButton = new Elements().new Grid().delete_Button(driver);
+		Custom info = new Elements().new Deletion_PopUp().info_PopUp(driver);
+		Button yes = new Elements().new Deletion_PopUp().yes_Button(driver);
+		Button add_Button = new Elements().new Grid().add_Button(driver);
+		//endregion
+		
+		// Открытие поп-апа
+		deleteButton.click();
+		new CommonActions().simpleWait(1);
+		waitUntilClickable(info);
+		
+		// Проверка сообщения
+		assertThat(info.getText(), is(equalTo(new Elements().new Deletion_PopUp().new Values().cardDeletion_Message)));
+		
+		// Закрытие поп-апа
+		yes.click();
+		new CommonActions().simpleWait(1);
+		add_Button.waitUntilAvailable();
+		waitForBlockStatus(new Elements().new Grid().download_Div(driver), false);
+	}
+	
+	public void cardDeletion_Check()
+	{
+		// Проверка отсутствия значений в гриде 'Действущие вещества'
+		new CustomMethods().elementExistenceCheck(new Elements().new Grid().grid_Body(driver), false);		
+	}
+	
 	/*____________________________________________________________________________________________________________________*/
 	
 	
@@ -128,12 +164,15 @@ public class Auditors_Page extends WebPage<Auditors_Page>
 	/*__________________________________________________ Elements ________________________________________________________*/
 	
 	private class Elements
-	{
-		// Унаследовать элементы дерева
-		private class Units_Tree extends CommonElements.UnitsTree_Elements {}
-		
+	{		
 		// Унаследовать элементы грида
 		private class Grid extends CommonElements.BaseGrid_Elements {}
+
+		// Поп-ап удаления
+		private class Deletion_PopUp extends CommonElements.General_PopUps
+		{
+			private class Values extends CommonElements.General_PopUps.Values{}
+		}
 		
 		// Унаследовать элементы аккордеона фильтрации
 		private class Filtration_Accordion extends CommonElements.FiltrationControl_Elements 

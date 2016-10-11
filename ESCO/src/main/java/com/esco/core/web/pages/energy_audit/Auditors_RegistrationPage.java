@@ -4,16 +4,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
-import java.sql.Connection;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
 
-import com.esco.core.database.DbQueries;
-import com.esco.core.database.DbStatements;
 import com.esco.core.web.CommonActions;
 import com.esco.core.web.CommonElements;
 import com.esco.core.web.CustomMethods;
@@ -156,20 +150,6 @@ public class Auditors_RegistrationPage extends WebPage<Auditors_RegistrationPage
 		//endregion
 		
 		new CommonActions().cardHeader_Check(driver, expected_Header);
-	}
-	
-	// Изменить краткое содержание
-	public Auditors_RegistrationPage comment_Edit()
-	{
-		// Установить краткое содержание
-		new Elements().comment_Text().click();
-		sendKeys("2");
-		
-		// Сохранить введенную инфу
-		new Elements().save_Button(driver).click();
-		new CommonActions().simpleWait(3);
-				
-		return new Auditors_RegistrationPage(driver).waitUntilAvailable();		
 	}
 	
 	// Возврат ко всем документам
