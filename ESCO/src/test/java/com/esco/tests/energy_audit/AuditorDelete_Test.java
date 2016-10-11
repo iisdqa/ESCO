@@ -3,7 +3,7 @@ package com.esco.tests.energy_audit;
 import org.testng.annotations.Test;
 
 import com.esco.core.BaseTest;
-import com.esco.core.web.pages.energy_audit.Auditors_Page;
+import com.esco.core.web.pages.energy_audit.auditors.Auditors_Page;
 import com.esco.core.web.pages.other.LogInPage;
 import com.esco.core.web.pages.other.MainPage;
 

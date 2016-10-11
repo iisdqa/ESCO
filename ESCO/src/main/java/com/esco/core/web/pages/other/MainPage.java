@@ -14,8 +14,8 @@ import com.esco.core.web.elements.Link;
 import com.esco.core.web.elements.Text;
 import com.esco.core.web.pages.administration.AuditPage;
 import com.esco.core.web.pages.administration.UsersPage;
-import com.esco.core.web.pages.energy_audit.Auditors_FilesPage;
-import com.esco.core.web.pages.energy_audit.Auditors_Page;
+import com.esco.core.web.pages.energy_audit.auditors.Auditors_Page;
+import com.esco.core.web.pages.energy_audit.objects.Objects_Page;
 
 public class MainPage extends WebPage<MainPage> 
 {
@@ -69,11 +69,20 @@ public class MainPage extends WebPage<MainPage>
 		// Блок "Енергоаудит"
 		public class EnergyAudit_Block
 		{
-			// Пункт меню 'Вхідні документи'
+			// Пункт меню 'Об'єкти'
+			public Objects_Page Objects_Page()
+			{    
+				// Использовать менюшку
+				new CommonActions().menu_Handler(driver, 3, 1);
+				
+			    return new Objects_Page(driver).waitUntilAvailable();			   
+			}
+			
+			// Пункт меню 'Аудитор'
 			public Auditors_Page Auditors_Page()
 			{    
 				// Использовать менюшку
-				new CommonActions().menu_Handler(driver, 3, 2);
+				new CommonActions().menu_Handler(driver, 3, 1);
 				
 			    return new Auditors_Page(driver).waitUntilAvailable();			   
 			}
@@ -143,14 +152,14 @@ public class MainPage extends WebPage<MainPage>
 		
 		
 		
-		// Для тестирования/дебагинга
+/*		// Для тестирования/дебагинга
 		public Auditors_FilesPage direct_Redirect()
 		{
 			driver.get(BASE_URL + "/CommonDocs/Docs/Edit/55/8595/58");
 			new CommonActions().simpleWait(3);
 			
 			return new Auditors_FilesPage(driver).waitUntilAvailable();
-		}
+		}*/
 	}
 	
 	

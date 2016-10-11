@@ -1,4 +1,4 @@
-package com.esco.core.web.pages.energy_audit;
+package com.esco.core.web.pages.energy_audit.auditors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;

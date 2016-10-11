@@ -1,4 +1,4 @@
-package com.esco.core.web.pages.energy_audit;
+package com.esco.core.web.pages.energy_audit.objects;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -14,17 +14,17 @@ import com.esco.core.web.WebPage;
 import com.esco.core.web.elements.Button;
 import com.esco.core.web.elements.Custom;
 
-public class Auditors_Page extends WebPage<Auditors_Page>
+public class Objects_Page extends WebPage<Objects_Page>
 {
 	private static final String PAGE_URL = BASE_URL + "/CommonDocs/Docs/List/86";
 	
-	public Auditors_Page(WebDriver driver) 
+	public Objects_Page(WebDriver driver) 
 	{
 		super(driver);
 	}
 
 	@Override
-	public Auditors_Page load()
+	public Objects_Page load()
 	{
 		driver.get(PAGE_URL);
 		return this;
@@ -54,12 +54,12 @@ public class Auditors_Page extends WebPage<Auditors_Page>
 	}
 	
 	// Перейти к добавлению карточки документа
-	public Auditors_RegistrationPage card_add()
+	public Objects_RegistrationPage card_add()
 	{
 		// Нажать на кнопку добавления
 		new Elements().new Grid().add_Button(driver).click();
 		new CommonActions().simpleWait(2);
-		return new Auditors_RegistrationPage(driver).waitUntilAvailable();	
+		return new Objects_RegistrationPage(driver).waitUntilAvailable();	
 	}
 	
 	// Поиск карточки
@@ -83,11 +83,11 @@ public class Auditors_Page extends WebPage<Auditors_Page>
 	{
 		//region Variables
 		WebElement grid = new Elements().new Grid().grid_Body(driver);
-		String fullName = new Elements().new Filtration_Accordion().new Values().fullName;
-		String phone = new Auditors_RegistrationPage(driver).new Elements().new Values().phone;
-		String cellPhone = new Auditors_RegistrationPage(driver).new Elements().new Values().cellPhone;
-		String email = new Auditors_RegistrationPage(driver).new Elements().new Values().email;
-		if (checkType == "edit") email = email + "2";		
+		String name = new Objects_RegistrationPage(driver).new Elements().new Values().name;
+		String objectType = new Objects_RegistrationPage(driver).new Elements().new Values().objectType;
+		String location = new Objects_RegistrationPage(driver).new Elements().new Koatuu_Elements().new Values().location;
+		String year = String.valueOf(new Objects_RegistrationPage(driver).new Elements().new Values().year);
+		if (checkType == "edit") year = String.valueOf(new Objects_RegistrationPage(driver).new Elements().new Values().year + 1);
 		//endregion
 		
 		// Определение ожидаемых значений
@@ -95,10 +95,10 @@ public class Auditors_Page extends WebPage<Auditors_Page>
 		ExpectedValues[0] = new String[] {"",
 										  "",
 										  "",
-										  fullName, 
-										  phone, 
-										  cellPhone, 
-										  email};
+										  name, 
+										  objectType,
+										  location,
+										  year};
 		
 		// Вытянуть последнее значения из грида
 		String[][] ActualValues = new CustomMethods().new Grid().GetAllRows(grid, true);;
@@ -108,23 +108,23 @@ public class Auditors_Page extends WebPage<Auditors_Page>
 	}
 	
 	// Переход к редактированию карточки
-	public Auditors_RegistrationPage card_Edit()
+	public Objects_RegistrationPage card_Edit()
 	{
 		// Нажать на кнопку редактирования
 		new Elements().new Grid().edit_Button(driver).click();
 		new CommonActions().simpleWait(2);
 		
-		return new Auditors_RegistrationPage(driver).waitUntilAvailable();	
+		return new Objects_RegistrationPage(driver).waitUntilAvailable();	
 	}
 	
 	// Переход к просмотру карточки
-	public Auditors_RegistrationPage card_View()
+	public Objects_RegistrationPage card_View()
 	{
 		// Нажать на кнопку просмотра
 		new Elements().new Grid().view_Button(driver).click();
 		new CommonActions().simpleWait(2);
 		
-		return new Auditors_RegistrationPage(driver).waitUntilAvailable();	
+		return new Objects_RegistrationPage(driver).waitUntilAvailable();	
 	}
 	
 	public void card_Delete()
@@ -180,13 +180,10 @@ public class Auditors_Page extends WebPage<Auditors_Page>
 			// Используемые значения
 			private class Values
 			{
-				private String fieldName = "ПІБ";
+				private String fieldName = "Назва об'єкта";
 				private String matchType = "Дорівнює";
-				private String surname = new Auditors_RegistrationPage(driver).new Elements().new Values().surname;
-				private String name = new Auditors_RegistrationPage(driver).new Elements().new Values().name;
-				private String patronymic = new Auditors_RegistrationPage(driver).new Elements().new Values().patronymic;
-				private String fullName = surname + " " + name + " " + patronymic;
-				private String value = fullName;
+				private String name = new Objects_RegistrationPage(driver).new Elements().new Values().name;
+				private String value = name;
 			}
 		}	
 	}

@@ -53,11 +53,11 @@
 	<test name="preserve-order Other tests" preserve-order="true">
 	    <groups>
         	<run>
-      			<include name="AuditorDelete_Test"/>
+      			<include name="ObjectAdd_Test"/>
         	</run>
     	</groups>
     	<classes>
-    		<class name="com.esco.tests.energy_audit.AuditorDelete_Test" />
+    		<class name="com.esco.tests.energy_audit.objects.ObjectAdd_Test" />
     	</classes>
 	</test>
 </suite>
