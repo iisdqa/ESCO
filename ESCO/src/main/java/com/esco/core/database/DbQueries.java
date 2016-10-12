@@ -19,6 +19,22 @@ public class DbQueries
 	// Тесты по блоку 'Документи'
 	public static class EnergyAuditTests
 	{
+		public static class Objects
+		{
+			public static class Select_Queries
+			{
+			}
+			
+			public static class Deletion_Queries
+			{
+				// Определение ошибки, которую будем выводить в случае падения запроса
+			    public static String objectDeletion_ErrorMessage = "\r\n\r\nПроизошла ошибка при попытке удаления объекта.\r\nТекст ошибки:\r\n";
+ 			 			    
+			    // Определение текста запроса
+			    public static String objectDeletion_Statement = new CustomMethods().new WorkWith_TextFiles().file_Read(queriesPath + "object_deletion.sql");
+			}	
+		}
+		
 		public static class Auditors
 		{
 			public static class Select_Queries

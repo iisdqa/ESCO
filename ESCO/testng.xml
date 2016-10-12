@@ -57,7 +57,7 @@
         	</run>
     	</groups>
     	<classes>
-    		<class name="com.esco.tests.energy_audit.objects.ObjectAdd_Test" />
+    		<class name="com.esco.tests.energy_audit.ObjectAdd_Test" />
     	</classes>
 	</test>
 </suite>

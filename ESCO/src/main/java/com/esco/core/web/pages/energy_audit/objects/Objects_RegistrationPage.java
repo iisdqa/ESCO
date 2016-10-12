@@ -1,8 +1,7 @@
 package com.esco.core.web.pages.energy_audit.objects;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,7 +14,9 @@ import com.esco.core.web.CustomMethods;
 import com.esco.core.web.WebPage;
 import com.esco.core.web.elements.Button;
 import com.esco.core.web.elements.Cell;
+import com.esco.core.web.elements.CheckBox;
 import com.esco.core.web.elements.Custom;
+import com.esco.core.web.elements.Text;
 import com.esco.core.web.elements.TextInput;
 
 public class Objects_RegistrationPage extends WebPage<Objects_RegistrationPage>
@@ -46,13 +47,13 @@ public class Objects_RegistrationPage extends WebPage<Objects_RegistrationPage>
 		Button save = new Elements().save_Button(driver);
 		TextInput name = new Elements().name_Input();
 		TextInput year = new Elements().year_Input();
-		TextInput group = new Elements().group_Input();
-		TextInput objectType = new Elements().objectType_Input();
-		TextInput projectType = new Elements().projectType_Input();
+		TextInput group = new Elements().group_Input(false);
+		TextInput objectType = new Elements().objectType_Input(false);
+		TextInput projectType = new Elements().projectType_Input(false);
 		Select modelOrientation = new Elements().modelOrientation_Select();
 		TextInput adress = new Elements().Adress_Input();
 		WebElement comment = new Elements().comment_Text();
-		TextInput koatuu = new Elements().new Koatuu_Elements().Koatuu_Input();
+		TextInput koatuu = new Elements().new Koatuu_Elements().Koatuu_Input(false);
 		//endregion
 		
 		// Проверка недоступности кнопки сохранения
@@ -64,7 +65,9 @@ public class Objects_RegistrationPage extends WebPage<Objects_RegistrationPage>
 		name.inputText(new Elements().new Values().name);
 		year.inputText(String.valueOf(new Elements().new Values().year));
 		group.inputText(new Elements().new Values().group);
+		new CommonActions().autoCompleteValue_Set(driver, group, 1);
 		objectType.inputText(new Elements().new Values().objectType);
+		new CommonActions().autoCompleteValue_Set(driver, objectType, 1);
 		projectType.inputText(new Elements().new Values().projectType);
 		modelOrientation.selectByVisibleText(new Elements().new Values().modelOrientation);
 		adress.inputText(new Elements().new Values().adress);
@@ -162,11 +165,11 @@ public class Objects_RegistrationPage extends WebPage<Objects_RegistrationPage>
 		Button save = new Elements().save_Button(driver);
 		TextInput name = new Elements().name_Input();
 		TextInput year = new Elements().year_Input();
-		TextInput group = new Elements().group_Input();
-		TextInput objectType = new Elements().objectType_Input();
-		TextInput projectType = new Elements().projectType_Input();
+		TextInput group = new Elements().group_Input(false);
+		TextInput objectType = new Elements().objectType_Input(false);
+		TextInput projectType = new Elements().projectType_Input(false);
 		Select modelOrientation = new Elements().modelOrientation_Select();
-		TextInput koatuu = new Elements().new Koatuu_Elements().Koatuu_Input();
+		TextInput koatuu = new Elements().new Koatuu_Elements().Koatuu_Input(false);
 		TextInput adress = new Elements().Adress_Input();
 		WebElement comment = new Elements().comment_Frame();
 		//endregion
@@ -225,20 +228,39 @@ public class Objects_RegistrationPage extends WebPage<Objects_RegistrationPage>
 		assertThat(year.getAttribute("value"), is(equalTo(String.valueOf(new Elements().new Values().year + 1))));
 	}
 	
-	public void koatuu_Edit()
+	public void koatuuEdit_Check()
 	{
-/*		//region Variables	
-		TextInput email = new Elements().email_Input();
+		//region Variables	
+		TextInput koatuu = new Elements().new Koatuu_Elements().Koatuu_Input(false);
+		TextInput city = new Elements().new Koatuu_Elements().city_Input();
 		//endregion
 		
-		// Редактироваить email
-		email.clear();
-		email.inputText(new Elements().new Values().email + "2");*/
+		// Редактироваить КОАТУУ
+		koatuu.clear();
+		koatuu.inputText(new Elements().new Koatuu_Elements().new Values().wrongDistrict_Code);
+		city.click();
+		
+		// Проверка подтягивания значения
+		koatuuSet_Check(new Elements().new Koatuu_Elements().new Values().wrongDistrict_Name);
 	}
 	
 	public void uniqueModel_Check()
 	{
+		//region Variables
+		CheckBox model = new Elements().model_CheckBox();
+		Button save = new Elements().save_Button(driver);
+		String message = "Для даного «Типу проекту» вже існує один об’єкт з позначкою «еталон». Назва об'єкту:";
+		//endregion
 		
+		// Установить чек-бокс
+		model.click();
+		
+		// Проверка появления ошибки
+		save.click();
+		waitUntilClickable(new Elements().new SaveOrNot_Elements().info_PopUp(driver));
+		assertThat(new Elements().new SaveOrNot_Elements().info_PopUp(driver).getText(), is(containsString(message)));
+		new Elements().new SaveOrNot_Elements().close_Button(driver).click();;
+		model.waitUntilAvailable();
 	}
 	
 	// Проверка хэдера карточки
@@ -261,10 +283,10 @@ public class Objects_RegistrationPage extends WebPage<Objects_RegistrationPage>
 		return new Objects_Page(driver).waitUntilAvailable();
 	}
 	
-	public Objects_FilesPage goTo_Files_Page(String go_Type)
+	public Objects_PropertyAttributesPage goTo_PropertyAttributes_Page(String go_Type)
 	{
 		//region Variables	
-		WebElement insetLink = new Elements().inset_Link(driver, "4");
+		WebElement insetLink = new Elements().inset_Link(driver, "2");
 		Custom info = new Elements().new SaveOrNot_Elements().info_PopUp(driver);
 		Button yes = new Elements().new SaveOrNot_Elements().yes_Button(driver);
 		//endregion
@@ -287,7 +309,40 @@ public class Objects_RegistrationPage extends WebPage<Objects_RegistrationPage>
 			new CommonActions().simpleWait(1);
 		}
 		
-		return new Objects_FilesPage(driver).waitUntilAvailable();
+		return new Objects_PropertyAttributesPage(driver).waitUntilAvailable();
+	}
+	
+	public void viewCard_Check()
+	{
+		//region Variables	
+		Button save = new Elements().save_Button(driver);
+		TextInput name = new Elements().name_Input();
+		TextInput year = new Elements().year_Input();
+		TextInput group = new Elements().group_Input(true);
+		TextInput objectType = new Elements().objectType_Input(true);
+		TextInput projectType = new Elements().projectType_Input(true);
+		Custom modelCheckBox = new Elements().modelCheckBox_Value();
+		WebElement modelOrientation =(WebElement) new Elements().modelOrientation_Select();
+		TextInput koatuu = new Elements().new Koatuu_Elements().Koatuu_Input(true);
+		TextInput adress = new Elements().Adress_Input();
+		Text comment = new Elements().commentView_Text();
+		//endregion
+		
+		// Проверка недоступности кнопки сохранения и генерации номера
+		assertThat(save.getAttribute("disabled"), is(equalTo("true")));
+
+		// Проверка обычных текстовых полей
+		assertThat(name.getAttribute("value"), is(equalTo(new Elements().new Values().name)));
+		assertThat(year.getAttribute("value"), is(equalTo(new Elements().new Values().year)));
+		assertThat(group.getAttribute("value"), is(equalTo(new Elements().new Values().group)));
+		assertThat(objectType.getAttribute("value"), is(equalTo(new Elements().new Values().objectType)));
+		assertThat(projectType.getAttribute("value"), is(equalTo(new Elements().new Values().projectType)));
+		assertThat(modelCheckBox.getAttribute("value"), is(equalTo("0")));
+		assertThat((modelOrientation).getAttribute("value"), is(equalTo(new Elements().new Values().modelOrientation)));
+		assertThat(koatuu.getAttribute("value"), is(equalTo(new Elements().new Koatuu_Elements().new Values().district_Code)));
+		assertThat(adress.getAttribute("value"), is(equalTo(new Elements().new Values().adress)));
+		geolocationSet_Check();
+		assertThat(comment.getText(), is(equalTo(new Elements().new Values().comment)));
 	}
 	
 	/*__________________________________________________ Элементы _______________________________________________________*/	
@@ -301,16 +356,34 @@ public class Objects_RegistrationPage extends WebPage<Objects_RegistrationPage>
 		private TextInput year_Input()   				{ return new TextInput(driver, By.id("938")); }
 		
 		// 'Группа типов объектов'
-		private TextInput group_Input()   				{ return new TextInput(driver, By.id("939_auto")); }	
+		private TextInput group_Input(Boolean viewMode)
+		{
+			String id = "939";
+			if(viewMode == false) id = id + "_auto";
+			return new TextInput(driver, By.id(id)); 
+		}	
 	
 		// 'Тип объекта'
-		private TextInput objectType_Input()      		{ return new TextInput(driver, By.id("940_auto")); }
+		private TextInput objectType_Input(Boolean viewMode)      		
+		{ 
+			String id = "940";
+			if(viewMode == false) id = id + "_auto";
+			return new TextInput(driver, By.id(id)); 
+		}
 	
 		// 'Тип проекта'
-		private TextInput projectType_Input()      		{ return new TextInput(driver, By.id("941_auto")); }
+		private TextInput projectType_Input(Boolean viewMode)      		
+		{ 
+			String id = "941";
+			if(viewMode == false) id = id + "_auto";
+			return new TextInput(driver, By.id(id)); 
+		}
 				
 		// 'Эталон'
-		private TextInput model_CheckBox()     	    	{ return new TextInput(driver, By.id("942_cb")); }
+		private CheckBox model_CheckBox()     	    	{ return new CheckBox(driver, By.id("942_cb")); }
+		
+		// 'Эталон' значение чекбокса
+		private Custom modelCheckBox_Value()     	    { return new Custom(driver, By.id("942")); }
 		
 		// 'Ориентация относительно эталона'
 		private Select modelOrientation_Select() 		{ return new Select(driver.findElement(By.id("943"))); } 
@@ -326,6 +399,9 @@ public class Objects_RegistrationPage extends WebPage<Objects_RegistrationPage>
 		
 		// 'Долгота'
 		private TextInput longitude_Input() 			{ return new TextInput(driver, By.id("948")); }
+		
+		// 'Комментарий' най форме просмотра
+		private Text commentView_Text() 				{ return new Text(driver, By.id("949")); }
 		
 		// 'Комментарий'
 		private WebElement comment_Text()   			{ WebElement element = driver.findElement(By.id("customTextEditor_949")); return element; }
@@ -355,7 +431,12 @@ public class Objects_RegistrationPage extends WebPage<Objects_RegistrationPage>
 			private Button choose_Button() 					{ return new Button(driver, By.id("944_showkoatuu")); }
 			
 			// 'КОАТУУ'
-			private TextInput Koatuu_Input() 				{ return new TextInput(driver, By.id("944_koatuu")); }
+			private TextInput Koatuu_Input(Boolean viewMode) 				
+			{
+				String id = "944";
+				if(viewMode == false) id = id + "_koatuu";
+				return new TextInput(driver, By.id(id)); 
+			}
 			
 			// 'Область'
 			private TextInput region_Input() 				{ return new TextInput(driver, By.id("Area")); }
