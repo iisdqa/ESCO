@@ -1,8 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<!--
 <suite name="All tests">
 	<listeners>
-		<listener class-name="com.docsflow.core.Listeners" />
+		<listener class-name="com.esco.core.Listeners" />
 	</listeners>
 	
 	<test name="preserve-order All tests" preserve-order="true">
@@ -10,25 +9,17 @@
 	        <define name="other_tests">
       			<include name="UsersAndAudit_Test"/>
     		</define>
-			
-			<define name="docs_tests">
-      			<include name="IncomingDocsAdd_Test"/>
+
+    		<define name="energy_audit">
+      			<include name="UsersAndAudit_Test"/>
+      			<include name="AuditorDelete_Test"/>
+      			<include name="ObjectAdd_Test"/>
+      			<include name="ObjectDelete_Test"/>
     		</define>
-    		
-    		<define name="registers_tests">
-      			<include name="IndividualAdd_Test"/>
-      			<include name="EntrepreneurAdd_Test"/>
-    		</define>
-			
-			<define name="cnap_tests">
-      			<include name=""/>
-    		</define>
-			
+				
 			<define name="all_tests">
       			<include name="other_tests"/>
-      			<include name="docs_tests"/>
-      			<include name="registers_tests"/>
-      			<include name="cnap_tests"/>
+      			<include name="energy_audit"/>
     		</define>
     			    
         	<run>
@@ -36,15 +27,16 @@
         	</run>
     	</groups>
     	<classes>
-       		<class name="com.docsflow.tests.administration.UsersAndAudit_Test" />
-			<class name="com.docsflow.tests.docs.IncomingDocsAdd_Test" />
-    		<class name="com.docsflow.tests.registers.IndividualAdd_Test" />
-    		<class name="com.docsflow.tests.registers.EntrepreneurAdd_Test" />	
+       		<class name="com.esco.tests.administration.UsersAndAudit_Test" />
+			<class name="com.esco.tests.energy_audit.AuditorAdd_Test" />
+    		<class name="com.esco.tests.energy_audit.AuditorDelete_Test" />
+    		<class name="com.esco.tests.energy_audit.ObjectAdd_Test" />
+    		<class name="com.esco.tests.energy_audit.ObjectDelete_Test" />
     	</classes>
 	</test>
 </suite>
--->
 
+<!--
 <suite name="For testing">
 	<listeners>
 		<listener class-name="com.esco.core.Listeners" />
@@ -61,3 +53,4 @@
     	</classes>
 	</test>
 </suite>
+-->
